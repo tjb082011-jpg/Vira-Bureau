@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRA BUREAU | Drop 001</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        bureau: {
+                            bg: '#0a0a0a',
+                            panel: '#121212',
+                            border: '#222222',
+                            subtle: '#888888',
+                            light: '#f5f5f5',
+                            accent: '#333333'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grid background overlay */
+        .grid-overlay {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222222;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444444;
+        }
+
+        .modal-blur {
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="grid-overlay min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed top-20 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-bureau-border px-6 py-4 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="#" class="font-black tracking-widest text-xl uppercase font-mono text-white hover:opacity-80 transition-opacity">
+                    VIRA BUREAU
+                </a>
+                <span class="text-[10px] font-mono border border-bureau-border px-2 py-0.5 rounded text-bureau-subtle uppercase tracking-wider hidden sm:inline-block">
+                    DROP 001 // SOVEREIGN
+                </span>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest text-bureau-subtle uppercase">
+                <a href="#catalog" class="hover:text-white transition-colors">ARCHIVE</a>
+                <a href="#protocol" class="hover:text-white transition-colors">PROTOCOL</a>
+                <a href="#manifesto" class="hover:text-white transition-colors">MANIFESTO</a>
+            </nav>
+
+            <div class="flex items-center gap-4 font-mono text-xs">
+                <a href="https://instagram.com" target="_blank" class="hover:text-white text-bureau-subtle transition-colors hidden sm:inline-block">
+                    DIRECT DM ↗
+                </a>
+                <button onclick="toggleCartDrawer()" class="relative border border-bureau-border px-3 py-2 rounded flex items-center gap-2 hover:border-white transition-colors bg-bureau-panel">
+                    <span>BAG</span>
+                    <span id="cartCount" class="bg-white text-black font-bold text-[10px] px-1.5 py-0.2 rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative border-b border-bureau-border py-20 px-6 overflow-hidden">
+            <div class="max-w-6xl mx-auto space-y-8">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs font-mono text-bureau-subtle uppercase tracking-widest">LIMITED CAPACITY DROP // 2026 EDITION</span>
+                </div>
+
+                <h1 class="text-5xl sm:text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none">
+                    SILENT<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-400 to-zinc-800">POWER.</span>
+                </h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 items-end">
+                    <p class="text-bureau-subtle text-sm leading-relaxed max-w-xl font-light">
+                        Heavyweight blanks engineered with drop shoulders, boxy proportions, and high-density cotton weaves. Distributed directly through autonomous peer-to-peer fulfillment protocols.
+                    </p>
+                    <div class="flex gap-4 md:justify-end font-mono text-xs">
+                        <a href="#catalog" class="px-6 py-3 bg-white text-black font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors">
+                            ENTER ARCHIVE
+                        </a>
+                        <a href="#protocol" class="px-6 py-3 border border-bureau-border uppercase tracking-wider hover:border-white transition-colors">
+                            HOW IT WORKS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fulfillment Banner -->
+        <section id="protocol" class="py-8 bg-bureau-panel border-b border-bureau-border px-6 font-mono text-xs">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex items-start gap-3">
+                    <span class="text-bureau-subtle font-bold">01 /</span>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">SELECT & RESERVE</h4>
+                        <p class="text-bureau-subtle text-[11px]">Choose your exact item and tailored fit from Drop 001.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-bureau-subtle font-bold">02 /</span>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">DIRECT SETTLEMENT</h4>
+                        <p class="text-bureau-subtle text-[11px]">Settle payment via CashApp, Venmo, Zelle, or PayPal tags.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-bureau-subtle font-bold">03 /</span>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">TAPSTITCH DISPATCH</h4>
+                        <p class="text-bureau-subtle text-[11px]">Orders print, pack, and dispatch within 48h of verification.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catalog Section -->
+        <section id="catalog" class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 border-b border-bureau-border pb-6">
+                <div>
+                    <span class="text-xs font-mono text-bureau-subtle uppercase tracking-widest">ARCHIVE INVENTORY</span>
+                    <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">DROP 001 GARMENTS</h2>
+                </div>
+                <div class="text-xs font-mono text-bureau-subtle">
+                    TAPSTITCH HEAVYWEIGHT BLANKS
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Products dynamically rendered by JS -->
+            </div>
+        </section>
+
+        <!-- Manifesto Section -->
+        <section id="manifesto" class="py-24 border-t border-bureau-border bg-bureau-panel/50 px-6">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <span class="text-xs font-mono text-bureau-subtle tracking-widest uppercase">THE VIRA BUREAU STANDARD</span>
+                <h3 class="text-3xl sm:text-5xl font-black uppercase tracking-tight">AUTONOMY OVER APPROVAL.</h3>
+                <p class="text-bureau-subtle text-sm sm:text-base leading-relaxed font-light">
+                    VIRA BUREAU operates outside conventional fashion infrastructure. We pair luxury, heavy-density garments with self-sovereign direct settlement. No middleman approvals, no compromised materials. High-density cotton, custom cuts, and pure execution.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 bg-black/80 z-50 modal-blur hidden justify-end transition-opacity">
+        <div class="bg-bureau-bg border-l border-bureau-border w-full max-w-md h-full flex flex-col justify-between p-6 overflow-y-auto">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-bureau-border">
+                    <span class="font-mono text-xs uppercase tracking-widest text-bureau-subtle">YOUR BAG</span>
+                    <button onclick="toggleCartDrawer()" class="text-zinc-400 hover:text-white font-mono text-sm">CLOSE [✕]</button>
+                </div>
+
+                <div id="cartItemsList" class="py-6 space-y-4">
+                    <!-- Cart items rendered here -->
+                </div>
+            </div>
+
+            <div id="cartFooter" class="border-t border-bureau-border pt-6 space-y-4">
+                <div class="flex justify-between font-mono text-sm">
+                    <span class="text-bureau-subtle">SUBTOTAL</span>
+                    <span id="cartSubtotal" class="font-bold">$0.00</span>
+                </div>
+                <button onclick="proceedToCheckout()" class="w-full py-4 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition-colors">
+                    PROCEED TO CHECKOUT
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manual Checkout Modal -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black/90 z-50 modal-blur hidden items-center justify-center p-4">
+        <div class="bg-bureau-panel border border-bureau-border w-full max-w-2xl rounded-lg overflow-hidden p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto relative">
+            <button onclick="closeCheckoutModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white font-mono text-sm">
+                [✕]
+            </button>
+
+            <div>
+                <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">AUTONOMOUS SETTLEMENT PROTOCOL</span>
+                <h3 class="text-2xl font-black uppercase tracking-tight mt-1">CONFIRM ORDER & SETTLE</h3>
+            </div>
+
+            <!-- Order Summary Box -->
+            <div class="bg-bureau-bg p-4 rounded border border-bureau-border space-y-2 font-mono text-xs">
+                <div class="flex justify-between text-bureau-subtle border-b border-bureau-border pb-2">
+                    <span>ITEMS</span>
+                    <span id="modalItemSummary">0 Items</span>
+                </div>
+                <div class="flex justify-between text-white font-bold pt-1">
+                    <span>TOTAL DUE</span>
+                    <span id="modalTotalAmount">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Payment Protocol Banner -->
+            <div class="bg-zinc-900 border border-zinc-700 p-4 rounded text-xs space-y-2">
+                <span class="font-mono font-bold text-white block">SETTLEMENT INSTRUCTIONS:</span>
+                <ol class="list-decimal list-inside space-y-1 text-bureau-subtle font-mono text-[11px]">
+                    <li>Copy your preferred payment tag below (CashApp, Venmo, Zelle, PayPal).</li>
+                    <li>Send the <strong class="text-white">exact amount</strong> with your <strong class="text-white">Full Name</strong> in the payment notes.</li>
+                    <li>Fill out your shipping details below so Tapstitch can dispatch your drop.</li>
+                </ol>
+            </div>
+
+            <!-- Payment Tags Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
+                <div class="p-3 bg-bureau-bg rounded border border-bureau-border flex items-center justify-between">
+                    <div>
+                        <div class="text-bureau-subtle text-[10px]">CASH APP</div>
+                        <div class="font-bold text-white">$ViraBureau</div>
+                    </div>
+                    <button onclick="copyTag('$ViraBureau')" class="px-2.5 py-1 bg-bureau-border hover:bg-zinc-700 rounded text-[10px] text-white">COPY</button>
+                </div>
+
+                <div class="p-3 bg-bureau-bg rounded border border-bureau-border flex items-center justify-between">
+                    <div>
+                        <div class="text-bureau-subtle text-[10px]">VENMO</div>
+                        <div class="font-bold text-white">@ViraBureau</div>
+                    </div>
+                    <button onclick="copyTag('@ViraBureau')" class="px-2.5 py-1 bg-bureau-border hover:bg-zinc-700 rounded text-[10px] text-white">COPY</button>
+                </div>
+
+                <div class="p-3 bg-bureau-bg rounded border border-bureau-border flex items-center justify-between">
+                    <div>
+                        <div class="text-bureau-subtle text-[10px]">ZELLE</div>
+                        <div class="font-bold text-white">pay@virabureau.com</div>
+                    </div>
+                    <button onclick="copyTag('pay@virabureau.com')" class="px-2.5 py-1 bg-bureau-border hover:bg-zinc-700 rounded text-[10px] text-white">COPY</button>
+                </div>
+
+                <div class="p-3 bg-bureau-bg rounded border border-bureau-border flex items-center justify-between">
+                    <div>
+                        <div class="text-bureau-subtle text-[10px]">PAYPAL</div>
+                        <div class="font-bold text-white">orders@virabureau.com</div>
+                    </div>
+                    <button onclick="copyTag('orders@virabureau.com')" class="px-2.5 py-1 bg-bureau-border hover:bg-zinc-700 rounded text-[10px] text-white">COPY</button>
+                </div>
+            </div>
+
+            <!-- Shipping Information Form -->
+            <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4 font-mono text-xs pt-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-bureau-subtle mb-1">FULL NAME *</label>
+                        <input type="text" required id="customerName" placeholder="Thomas Miller" class="w-full bg-bureau-bg border border-bureau-border p-3 rounded text-white focus:outline-none focus:border-white">
+                    </div>
+                    <div>
+                        <label class="block text-bureau-subtle mb-1">PAYMENT HANDLE USED *</label>
+                        <input type="text" required id="customerHandle" placeholder="$Cashtag or @Venmo" class="w-full bg-bureau-bg border border-bureau-border p-3 rounded text-white focus:outline-none focus:border-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-bureau-subtle mb-1">SHIPPING ADDRESS *</label>
+                    <input type="text" required id="customerAddress" placeholder="123 Sovereign St, Apt 4B, Atlanta, GA 30301" class="w-full bg-bureau-bg border border-bureau-border p-3 rounded text-white focus:outline-none focus:border-white">
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold uppercase tracking-widest text-xs rounded transition-colors">
+                    I HAVE SENT PAYMENT — SUBMIT ORDER
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-bureau-border py-12 px-6 bg-bureau-bg text-xs font-mono text-bureau-subtle">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-white">VIRA BUREAU</span>
+                <span>// AUTONOMOUS APPAREL LAB</span>
+            </div>
+            <div class="flex gap-6 text-[11px]">
+                <a href="#protocol" class="hover:text-white transition-colors">FULFILLMENT</a>
+                <a href="#manifesto" class="hover:text-white transition-colors">STANDARDS</a>
+                <a href="#" class="hover:text-white transition-colors">PRIVACY</a>
+            </div>
+            <div>
+                © 2026 VIRA BUREAU. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const PRODUCTS = [
+            {
+                id: 'vb-01',
+                name: 'VB-01 BOXY HEAVYWEIGHT TEE',
+                category: 'T-SHIRT',
+                gsm: '280 GSM Organic Cotton',
+                price: 45,
+                image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
+                description: 'Drop-shoulder, tight collar luxury blank. Built with high-density cotton to hold its structured silhouette through daily wear.'
+            },
+            {
+                id: 'vb-02',
+                name: 'VB-02 SOVEREIGN OVERSIZED HOODIE',
+                category: 'FLEECE',
+                gsm: '480 GSM Heavyweight French Terry',
+                price: 85,
+                image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+                description: 'Double-lined hood with no drawstrings. Deep kangaroo pocket and thick ribbed trim designed for boxy oversized layering.'
+            },
+            {
+                id: 'vb-03',
+                name: 'VB-03 ARCHITECT ACID WASH TEE',
+                category: 'T-SHIRT',
+                gsm: '320 GSM Vintage Wash Cotton',
+                price: 48,
+                image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80',
+                description: 'Custom mineral acid wash process giving each garment a unique dark charcoal tone and vintage texture.'
+            }
+        ];
+
+        let cart = [];
+        let selectedSizes = {};
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = PRODUCTS.map(product => {
+                // Default size selection to 'M'
+                if (!selectedSizes[product.id]) {
+                    selectedSizes[product.id] = 'M';
+                }
+
+                return `
+                    <div class="border border-bureau-border bg-bureau-panel rounded-lg overflow-hidden flex flex-col justify-between group hover:border-zinc-500 transition-all">
+                        <div>
+                            <div class="aspect-square bg-zinc-950 relative overflow-hidden flex items-center justify-center">
+                                <span class="absolute top-3 left-3 bg-black/80 backdrop-blur text-[10px] font-mono px-2 py-1 rounded border border-bureau-border text-bureau-subtle z-10">
+                                    ${product.gsm}
+                                </span>
+                                <img src="${product.image}" alt="${product.name}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100">
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-bold text-base tracking-tight">${product.name}</h3>
+                                        <p class="text-xs text-bureau-subtle font-mono mt-0.5">${product.category}</p>
+                                    </div>
+                                    <span class="font-mono font-bold text-lg">$${product.price}</span>
+                                </div>
+                                <p class="text-xs text-bureau-subtle leading-relaxed font-light">
+                                    ${product.description}
+                                </p>
+                                
+                                <!-- Size Selector -->
+                                <div class="space-y-1 pt-2">
+                                    <label class="text-[10px] font-mono text-bureau-subtle uppercase">SELECT FIT SIZE</label>
+                                    <div class="grid grid-cols-5 gap-1.5 font-mono text-xs">
+                                        ${['S', 'M', 'L', 'XL', 'XXL'].map(size => `
+                                            <button 
+                                                onclick="selectProductSize('${product.id}', '${size}')"
+                                                class="py-1.5 border rounded ${selectedSizes[product.id] === size ? 'border-white bg-white text-black font-bold' : 'border-bureau-border bg-bureau-bg text-white hover:border-zinc-500'}"
+                                            >
+                                                ${size}
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 pt-0">
+                            <button onclick="addToCart('${product.id}')" class="w-full py-3 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors">
+                                ADD TO BAG
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectProductSize(productId, size) {
+            selectedSizes[productId] = size;
+            renderProducts();
+        }
+
+        function addToCart(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            const size = selectedSizes[productId] || 'M';
+
+            const existingIndex = cart.findIndex(item => item.id === productId && item.size === size);
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({ ...product, size, quantity: 1 });
+            }
+
+            updateCartUI();
+            showToast(`ADDED ${product.name} [${size}] TO BAG`);
+        }
+
+        function updateQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cartCount');
+            const listElem = document.getElementById('cartItemsList');
+            const subtotalElem = document.getElementById('cartSubtotal');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            countElem.innerText = totalCount;
+            subtotalElem.innerText = `$${totalAmount.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                listElem.innerHTML = `
+                    <div class="text-center py-12 text-bureau-subtle font-mono text-xs">
+                        YOUR BAG IS CURRENTLY EMPTY.
+                    </div>
+                `;
+            } else {
+                listElem.innerHTML = cart.map((item, index) => `
+                    <div class="flex items-center justify-between p-3 bg-bureau-panel rounded border border-bureau-border font-mono text-xs">
+                        <div>
+                            <div class="font-bold text-white">${item.name}</div>
+                            <div class="text-bureau-subtle text-[10px]">SIZE: ${item.size} // $${item.price} EA</div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="updateQuantity(${index}, -1)" class="px-2 py-0.5 border border-bureau-border rounded hover:border-white">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateQuantity(${index}, 1)" class="px-2 py-0.5 border border-bureau-border rounded hover:border-white">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                drawer.classList.add('flex');
+            } else {
+                drawer.classList.add('hidden');
+                drawer.classList.remove('flex');
+            }
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showToast('YOUR BAG IS EMPTY');
+                return;
+            }
+
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            document.getElementById('modalItemSummary').innerText = `${totalCount} Garment(s)`;
+            document.getElementById('modalTotalAmount').innerText = `$${totalAmount.toFixed(2)}`;
+
+            toggleCartDrawer();
+            document.getElementById('checkoutModal').classList.remove('hidden');
+            document.getElementById('checkoutModal').classList.add('flex');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+            document.getElementById('checkoutModal').classList.remove('flex');
+        }
+
+        function copyTag(tag) {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = tag;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            showToast(`COPIED TAG: ${tag}`);
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('customerName').value;
+            const handle = document.getElementById('customerHandle').value;
+            const address = document.getElementById('customerAddress').value;
+
+            showToast('ORDER REGISTERED — AWAITING PAYMENT CLEARANCE');
+            
+            setTimeout(() => {
+                alert(`ORDER RECORDED FOR ${name.toUpperCase()}\n\nAddress: ${address}\nHandle: ${handle}\n\nOrders dispatch automatically via Tapstitch once payment clears.`);
+                cart = [];
+                updateCartUI();
+                closeCheckoutModal();
+                document.getElementById('orderForm').reset();
+            }, 500);
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'bg-white text-black font-mono text-xs font-bold px-4 py-3 rounded shadow-xl border border-zinc-200 transition-all';
+            toast.innerText = message;
+
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        // Initialize on Load
+        window.onload = function() {
+            renderProducts();
+            updateCartUI();
+        };
+    </script>
+</body>
+</html>
